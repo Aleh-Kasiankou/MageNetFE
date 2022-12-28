@@ -1,4 +1,4 @@
-import styles from '../../styles/BackendLayout.module.css'
+import styles from '../../styles/Backend/layout.module.css'
 import React from "react";
 import {House, Package, PuzzlePiece, Sliders} from "phosphor-react";
 import Link from "next/link";
@@ -43,7 +43,6 @@ export default function Layout({children}) {
             </div>
             <div className={styles.mainContentContainer}>
                 <div>
-                    <h1>Backend Layout</h1>
                     {children}
                 </div>
             </div>

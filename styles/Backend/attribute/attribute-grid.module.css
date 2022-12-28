@@ -1,0 +1,64 @@
+.attributeGridContainer {
+    width: 80%;
+    margin: auto;
+}
+
+.attributeGrid {
+    width: 100%;
+
+
+    background: var(--backend-bg-light);
+
+}
+
+.attributeGrid th {
+    font-size: 20px;
+    padding: 1rem;
+
+    text-align: start;
+    border-bottom: solid var(--backend-fg-main);
+}
+
+.attributeGrid tbody td {
+    font-size: 18px;
+    padding: 0.5rem;
+    max-height: fit-content;
+    background: var(--backend-fg-shade);
+
+}
+
+.attributeGridActions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.attributeGridActionBar {
+    display: flex;
+    gap: 2vw;
+    width: fit-content;
+    margin: auto auto 2vh;
+}
+
+
+.attributeGridNewButtonLink {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5vw;
+
+    background: var(--backend-fg-accent);
+    color: var(--backend-fg-light);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.attributeGridNewButtonLink:hover {
+    cursor: pointer;
+    background: var(--backend-fg-accent-dark);
+    transition: 0.2s;
+}
+
+.attributeGridSearch {
+    height: 4vh;
+    width: 30vw;
+    padding: 1rem;
+}
