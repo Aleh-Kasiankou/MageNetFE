@@ -2,8 +2,25 @@ import Layout from "../../../../components/Backend/Layout";
 import styles from "../../../../styles/Backend/attribute/attribute-grid.module.css"
 import {Trash} from "phosphor-react";
 import Link from "next/link";
+import ApiRouteResolver from "../../../../lib/api-route-resolver";
 
-export default function Index() {
+
+export async function getServerSideProps({req, res}) {
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=10, stale-while-revalidate=30'
+    )
+
+    const url = ApiRouteResolver.buildApiUrl('attribute', '');
+    const request = await fetch(url)
+    const attributes = await request.json()
+
+    return {
+        props: {attributes}, // will be passed to the page component as props
+    }
+}
+
+export default function Index(props) {
 
     const iconSize = 30;
     const iconColor = '#2a2b2c';
@@ -16,7 +33,7 @@ export default function Index() {
                        placeholder={'Search'}/>
 
                 <Link href={'/admin/attribute/product/new'} className={styles.attributeGridNewButtonLink}>
-                        Add New
+                    Add New
                 </Link>
             </div>
 
@@ -30,95 +47,15 @@ export default function Index() {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
+                {props.attributes.map(x => <tr key={x.attributeId}>
+                    <td className={styles.idColumn}>{x.attributeId}</td>
+                    <td className={styles.nameColumn}>{x.attributeName}</td>
+                    <td className={styles.typeColumn}>{x.attributeType}</td>
+                    <td className={styles.actionsColumn}>
                         <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-                <tr>
-                    <td>fkds-398fd-FDDF-153</td>
-                    <td>SKU</td>
-                    <td>Text</td>
-                    <td>
-                        <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/></td>
-                </tr>
-
+                        <Trash size={iconSize} color={iconColor}/>
+                    </td>
+                </tr>)}
                 </tbody>
             </table>
         </>

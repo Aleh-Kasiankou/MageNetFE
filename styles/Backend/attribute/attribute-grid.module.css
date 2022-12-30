@@ -5,8 +5,6 @@
 
 .attributeGrid {
     width: 100%;
-
-
     background: var(--backend-bg-light);
 
 }
@@ -61,4 +59,23 @@
     height: 4vh;
     width: 30vw;
     padding: 1rem;
+}
+
+.idColumn {
+    width: 25%;
+}
+
+.nameColumn {
+    width: 25%;
+
+}
+
+.typeColumn {
+    width: 25%;
+
+}
+
+.actionsColumn {
+    width: 25%;
+
 }

@@ -1,0 +1,22 @@
+.optionsGrid {
+    display: grid;
+    grid-template-columns:  1fr 2fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+
+    row-gap: 2vh;
+    padding: 2rem;
+
+    background: var(--backend-fg-shade);
+}
+
+.isDefault{
+    display: flex;
+    gap: 1rem;
+}
+
+.optionsGrid button{
+    padding: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+}

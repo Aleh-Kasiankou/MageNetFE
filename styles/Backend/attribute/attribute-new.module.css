@@ -25,3 +25,7 @@
     background: var(--backend-fg-accent-dark);
     transition: 0.2s;
 }
+
+.gridFullWidth{
+    grid-column: 1/-1;
+}
