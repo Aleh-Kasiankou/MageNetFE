@@ -1,10 +1,16 @@
 import React, {useState} from "react";
-import styles from "../../styles/Backend/attribute/options-builder.module.css"
+import styles from "../../../styles/Backend/attribute/options-builder.module.css"
 import {v4 as guid} from 'uuid';
 
 export default function OptionsBuilder(props) {
 
-    const [optionsList, setOptionsList] = useState([{id: guid(), val: "", isDefault: false}])
+    const selectableOptions = props.selectableOptions?.map((option) =>
+    { return {
+        id: option.selectableAttributeValueId,
+        val: option.value,
+        isDefault: option.isDefaultValue}})
+
+    const [optionsList, setOptionsList] = useState( selectableOptions ?? [{id: guid(), val: "", isDefault: false}])
 
     const addOptionHandler = () => {
 
@@ -73,7 +79,7 @@ export default function OptionsBuilder(props) {
 
                                     <div className={styles.isDefault}>
                                         <label>Default:</label>
-                                        <input type={"checkbox"} data-index={index} onClick={defaultChangeHandler}/>
+                                        <input defaultChecked={x.isDefault} type={"checkbox"} data-index={index} onClick={defaultChangeHandler}/>
                                     </div>
 
                                     <button type={"button"} data-index={index}

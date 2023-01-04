@@ -3,6 +3,7 @@ import styles from "../../../../styles/Backend/attribute/attribute-grid.module.c
 import {Trash} from "phosphor-react";
 import Link from "next/link";
 import ApiRouteResolver from "../../../../lib/api-route-resolver";
+import {useState} from "react";
 
 
 export async function getServerSideProps({req, res}) {
@@ -24,6 +25,38 @@ export default function Index(props) {
 
     const iconSize = 30;
     const iconColor = '#2a2b2c';
+
+    const [attributes, setAttributes] = useState([...props.attributes]);
+
+    const deleteAttributeHandler = (event) => {
+        const attributeId = event.target.getAttribute('data-key');
+        const endpoint = ApiRouteResolver.buildApiUrl('attribute', attributeId)
+        fetch(endpoint, {
+            method: 'DELETE',
+        })
+            .then((response) => {
+                if (response.status === 204) {
+                    alert("Attribute is deleted")
+
+                    setAttributes(prevState => {
+                        const newAttributes = prevState.slice()
+                        for (const attr of newAttributes) {
+                            if (attributeId === attr.attributeId) {
+                                newAttributes.splice(newAttributes.indexOf(attr), 1)
+                                break;
+                            }
+                        }
+
+                        return newAttributes;
+                    })
+                }
+            })
+            .catch(error => {
+                alert(error)
+            });
+
+
+    }
 
     return (
         <>
@@ -47,13 +80,14 @@ export default function Index(props) {
                 </tr>
                 </thead>
                 <tbody>
-                {props.attributes.map(x => <tr key={x.attributeId}>
-                    <td className={styles.idColumn}>{x.attributeId}</td>
-                    <td className={styles.nameColumn}>{x.attributeName}</td>
-                    <td className={styles.typeColumn}>{x.attributeType}</td>
+                {attributes.map(x => <tr key={x.attributeId}>
+                    <td className={styles.idColumn}><Link href={'./product/' + x.attributeId}>{x.attributeId}</Link></td>
+                    <td className={styles.nameColumn}><Link href={'./product/' + x.attributeId}>{x.attributeName}</Link></td>
+                    <td className={styles.typeColumn}><Link href={'./product/' + x.attributeId}>{x.attributeType}</Link></td>
                     <td className={styles.actionsColumn}>
                         <div className={styles.attributeGridActions}></div>
-                        <Trash size={iconSize} color={iconColor}/>
+                        <Trash onClick={deleteAttributeHandler} size={iconSize} data-key={x.attributeId}
+                               color={iconColor}/>
                     </td>
                 </tr>)}
                 </tbody>
