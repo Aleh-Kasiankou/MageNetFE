@@ -28,9 +28,11 @@ export default function AttributePage() {
             },
             body: JSON.stringify(requestBody),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data);
+            .then((response) => {
+                if (response.ok){
+                    alert("Attribute has been saved")
+                }
+
             })
             .catch((error) => {
                 alert('Error: Saving the attribute has failed. Please try again later.');

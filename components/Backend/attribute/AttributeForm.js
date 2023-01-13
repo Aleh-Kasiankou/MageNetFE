@@ -69,14 +69,10 @@ export default function AttributeForm(props) {
 
         if (dataObject.attributeType === "Selectable") {
 
-            console.log(selectableOptions)
-
 
             selectableOptions = selectableOptions.map((x) => {
-                return {value: x.val, isDefaultValue: x.isDefault}
+                return {optionId: x.id, value: x.val, isDefaultValue: x.isDefault, isToDelete: x.isToDelete}
             })
-
-            console.log(selectableOptions)
 
             apiRequest['selectableOptions'] = selectableOptions
         }
